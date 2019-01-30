@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-        <navbar @search="search"/>
+        <navbar/>
     </div>
     <router-view/>
   </div>
@@ -22,9 +22,6 @@ export default {
     }
   },
   methods: {
-    search () {
-      
-    }
   },
   created () {
     this.$store.dispatch('getQuestion')

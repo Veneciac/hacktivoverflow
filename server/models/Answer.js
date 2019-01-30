@@ -34,7 +34,7 @@ var answerSchema = new Schema({
 })
 
 answerSchema.post('save', function (val) {
-    Question.findByIdAndUpdate(val.question, { $push: { answer: val._id } },{new:true})
+    Question.findOneAndUpdate({_id: val.question}, { $push: { answer: val._id } },{new:true})
         .then(resp => {
             console.log('masuk hooks update ke question')
         })

@@ -12,11 +12,6 @@ export default new Router({
       component: Home
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('./views/About.vue')
-    },
-    {
       path: '/signin',
       name: 'signin',
       component: () => import('./views/Form.vue')

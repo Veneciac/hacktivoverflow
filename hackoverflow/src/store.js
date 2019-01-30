@@ -9,7 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     url: `http://localhost:3000`,
-    user: {},
+    user: undefined,
     questions: [],
     questionDetail: {},
     answersList: [],
@@ -47,7 +47,7 @@ export default new Vuex.Store({
         router.push({ name: 'home'})
       })
       .catch(err => {
-        console.log(err.response)
+        swal("Sorry!", `${err.response.data.msg}`, "error")
       })
     },
     register ({commit}, data) {
@@ -62,7 +62,7 @@ export default new Vuex.Store({
         router.push({ name: 'home'})
       })
       .catch(err => {
-        console.log(err.response)
+        swal("Sorry!", `${err.response.data.msg}`, "error")
       })
     },
     logOut ({ commit }) {
@@ -78,9 +78,12 @@ export default new Vuex.Store({
         }
       })
       .then(resp => {
-        commit('mutateUser', resp.data.data)
+        if (resp.data.data) {
+          commit('mutateUser', resp.data.data)
+        }
       })
       .catch(err => {
+        swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
@@ -95,10 +98,10 @@ export default new Vuex.Store({
       })
       .then(resp => {
         commit('mutateAddQuestion', resp.data.data)
-        console.log('masuk action then')
         router.push({ name: 'home'})
       })
       .catch(err => {
+        swal("Sorry!", `${err.response.data.msg}`, "error")
         console.log(err, 'ini error')
       })
     },
@@ -111,6 +114,7 @@ export default new Vuex.Store({
         commit('mutateQuestion', resp.data.data)
       })
       .catch(err => {
+        swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
@@ -123,6 +127,7 @@ export default new Vuex.Store({
         commit('mutateQuestionDetail', resp.data.data)
       })
       .catch(err => {
+        swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
@@ -135,6 +140,7 @@ export default new Vuex.Store({
         commit('mutateGetAnswer', resp.data.data)
       })
       .catch(err => {
+        swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
@@ -150,6 +156,10 @@ export default new Vuex.Store({
       .then(resp => {
         this.dispatch('getOneQuestion', ques._id)
         this.dispatch('getQuestion')
+      })
+      .catch(err => {
+        swal("Sorry!", `There seem to be something wrong`, "error")
+        console.log(err.response)
       })
     },
     upVote ({commit}, ques) {
@@ -180,7 +190,6 @@ export default new Vuex.Store({
             }
           } else {
             swal("Sorry!", "You already upvote!", "info")
-            // console.log('udh uypvotes g bisa lagi')
           }
         }
       } else {
@@ -215,7 +224,6 @@ export default new Vuex.Store({
             }
           } else {
             swal("Sorry!", "You already downvote!", "info")
-            // console.log('udh downvotes g bisa lagi')
           }
         }
       } else {
@@ -223,14 +231,19 @@ export default new Vuex.Store({
       }
     },
     addAnswer ({ commit }, answer) {
-      return axios({
-        method: 'post',
-        url: `${this.state.url}/answers/${router.currentRoute.params.id}`,
-        data: answer,
-        headers: {
-          token: localStorage.token
-        }
-      })
+      if (this.state.user) {
+        console.log('masuk')
+        return axios({
+          method: 'post',
+          url: `${this.state.url}/answers/${router.currentRoute.params.id}`,
+          data: answer,
+          headers: {
+            token: localStorage.token
+          }
+        })
+      } else {
+        swal('Please login first!', '', 'info')
+      }
  
     },
     updateAnswer ({commit}, answer) {
@@ -246,6 +259,7 @@ export default new Vuex.Store({
         this.dispatch('getAnswer', router.currentRoute.params.id)
       })
       .catch(err => {
+        swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
@@ -257,6 +271,36 @@ export default new Vuex.Store({
       } else {
         this.dispatch('getQuestion')
       }
+    },
+    deleteQuestion({ commit }, id) {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this question.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          axios({
+            method: 'delete',
+            url: `${this.state.url}/questions/${id}`,
+            headers: {
+              token: localStorage.token
+            }
+          })
+          .then(resp => {
+            this.dispatch('getQuestion')
+            swal("Poof! Your question has been deleted!", {
+              icon: "success",
+            });
+            router.push({name: 'home'})
+          })
+          .catch(err => {
+            swal('Sorry', `${err.response.data.msg}`, 'error')
+          })
+        }
+      })
     }
   },
 })

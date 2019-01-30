@@ -30,7 +30,6 @@ var userSchema = new Schema({
     },
     password: {
         type: String,
-        required: [true, 'Password required']
     },
     birthday: {
         type: Date

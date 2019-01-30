@@ -3,7 +3,7 @@
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
         <router-link :to="{ name: 'home'}">
-            <b-navbar-brand>HacktivOverflow</b-navbar-brand>
+            <b-navbar-brand> <img src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/860/1635806860_c9f3d26e-b807-4802-b070-64cfa206ce1d.png?cb=1548814517" alt="HacktivOverflow"> </b-navbar-brand>
         </router-link>
 
         <b-collapse is-nav id="nav_collapse">

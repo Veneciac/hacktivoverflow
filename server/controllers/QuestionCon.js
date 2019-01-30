@@ -1,5 +1,6 @@
 const Question = require('../models/Question')
-
+const Answer = require('../models/Answer')
+const ObjId = require('mongoose').Types.ObjectId
 class Controller {
     static read (req, res) {
         Question.find({}).populate('user').populate('upvotes').populate('downvotes').exec()
@@ -112,6 +113,20 @@ class Controller {
     static delete (req, res) {
         if (String(req.currentQuestion.user._id) == String(req.currentUser._id)) {
             req.currentQuestion.remove()
+                .then(resp => {
+                    Answer.deleteMany({question: ObjId(req.currentQuestion._id)}, (err) => {
+                        if(err) {
+                            console.log(err)
+                        } else {
+                            res.status(200).json({
+                                msg: `Success delete`
+                            })
+                        }
+                    })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         } else {
             res.status(403).json({
                 msg: `You are not authorized to delete others question`

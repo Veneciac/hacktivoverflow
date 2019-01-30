@@ -8,7 +8,8 @@
                     </h2>
                 </div>
                 <div class="col-2 float-right" v-if="questionDetail.user && user">
-                    <i v-if="questionDetail.user._id == user._id" v-b-modal.modal1 class="fas fa-edit">Edit</i>
+                    <i style="cursor: pointer" v-if="questionDetail.user._id == user._id" v-b-modal.modal1 class="fas fa-edit">Edit</i>
+                    <i style="cursor: pointer" v-if="questionDetail.user._id == user._id" @click="deleteQues" class="fas fa-trash-alt ml-3"></i>
                 </div>
             </div>
             <hr>
@@ -74,25 +75,26 @@ export default {
             this.$store.dispatch('downVote', this.questionDetail)
         },
         cekStatus () {
-            // console.log(this.questionDetail.user._id == this.user._id)
-            this.questionDetail.upvotes.forEach(el => {
-                if (el._id == this.user._id) {
-                    this.status = 'upvoted'
-                } else {
-                    this.status = ''
-                }
-            });
-
-            this.questionDetail.downvotes.forEach(el => {
-               if (el._id == this.user._id) {
-                    this.status = 'downvoted'
-                } else {
-                    this.status = ''
-                }
-            });
+            if (this.user) {
+                let status = ''
+                this.questionDetail.upvotes.forEach(el => {
+                    if (el._id == this.user._id) {
+                       status = 'upvoted'
+                    } 
+                });
+                this.questionDetail.downvotes.forEach(el => {
+                   if (el._id == this.user._id) {
+                        status = 'downvoted'
+                    }
+                });
+                this.status = status
+            }
         },
         showModal () {
             this.$emit('showModal')
+        },
+        deleteQues () {
+            this.$store.dispatch('deleteQuestion', this.$route.params.id)
         }
     },
     computed: mapState(['questionDetail', 'user']),

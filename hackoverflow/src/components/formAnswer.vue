@@ -39,7 +39,7 @@ export default {
                  .then(resp => {
                      this.title = ''
                      this.description = ''
-                    this.$store.dispatch('getAnswer', this.$route.params.id)
+                     this.$store.dispatch('getAnswer', this.$route.params.id)
                 })
                 .catch(err => {
                     console.log(err.response)
