@@ -12,7 +12,7 @@
          <b-form-group label="Your Birthday:">
             <b-form-input type="date" v-model="birthday" placeholder="Enter your birthday" />
         </b-form-group>
-        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="submit" variant="dark">Submit</b-button>
         <router-link :to="{name: 'home' }">
             <b-button type="reset" variant="light">Close</b-button>
         </router-link>

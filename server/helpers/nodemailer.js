@@ -32,6 +32,8 @@ module.exports = {
                 <p> Don't forget to check us out ! </p>
                 <br>
                 <p> Be active and you will be smarter (: </p>
+                    <h4> Click here to visit us </h4>
+                    <h2> http://hacktivoverflow.veneciac.xyz/#/ </h2>
                 <br>
                 <br>
                 <p> Thank you. </p> 

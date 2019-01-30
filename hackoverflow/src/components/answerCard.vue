@@ -30,11 +30,14 @@
                     </p>
                 </div>
                 <div class="row-3 float-right">
-                    <div class="col"></div>
-                    <div class="col-3 bg-light" style="">
-
+                    <small>answered {{ new Date(answer.createdAt).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'}) }}</small>
+                    <br>
+                    <div v-if="answer.user" >
+                            <router-link :to="{name: 'profile', params: {id: answer.user._id} }" >
+                                <small class="float-right">by {{ answer.user.name }} </small>
+                            </router-link>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
         <hr style="margin-top: 0" />

@@ -20,7 +20,7 @@
             <b-badge v-for="tag in tags" :key="tag" variant="light"> <h6> {{ tag }} </h6> </b-badge>
 
             <div class="float-right mt-3">
-                <b-button class="mr-2" type="submit" variant="primary">Submit</b-button>
+                <b-button class="mr-2" type="submit" variant="dark">Submit</b-button>
             </div>
         </b-form>   
       </div>

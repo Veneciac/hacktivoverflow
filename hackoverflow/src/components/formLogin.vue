@@ -6,7 +6,7 @@
         <b-form-group label="Your Password:">
             <b-form-input type="password" v-model="password" required placeholder="Enter password" />
         </b-form-group>
-        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="submit" variant="dark">Submit</b-button>
         <router-link :to="{name: 'home' }">
             <b-button type="reset" variant="light">Close</b-button>
         </router-link>

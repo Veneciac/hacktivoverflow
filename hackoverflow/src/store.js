@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    url: `http://localhost:3000`,
+    url: `http://hacktivoverflow-server.veneciac.xyz`,
     user: undefined,
     questions: [],
     questionDetail: {},
@@ -83,7 +83,7 @@ export default new Vuex.Store({
         }
       })
       .catch(err => {
-        swal("Sorry!", `There seem to be something wrong`, "error")
+        // swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
@@ -114,7 +114,7 @@ export default new Vuex.Store({
         commit('mutateQuestion', resp.data.data)
       })
       .catch(err => {
-        swal("Sorry!", `There seem to be something wrong`, "error")
+        // swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
@@ -127,7 +127,7 @@ export default new Vuex.Store({
         commit('mutateQuestionDetail', resp.data.data)
       })
       .catch(err => {
-        swal("Sorry!", `There seem to be something wrong`, "error")
+        // swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
@@ -140,7 +140,7 @@ export default new Vuex.Store({
         commit('mutateGetAnswer', resp.data.data)
       })
       .catch(err => {
-        swal("Sorry!", `There seem to be something wrong`, "error")
+        // swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
@@ -158,7 +158,7 @@ export default new Vuex.Store({
         this.dispatch('getQuestion')
       })
       .catch(err => {
-        swal("Sorry!", `There seem to be something wrong`, "error")
+        // swal("Sorry!", `There seem to be something wrong`, "error")
         console.log(err.response)
       })
     },
